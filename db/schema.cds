@@ -5,6 +5,8 @@ entity Authors {
         name        : String(100);
         dateOfBirth : Date;
         dateOfDeath : Date;
+        books       : Association to many Books
+                          on books.author = $self;
 }
 
 entity Books {
