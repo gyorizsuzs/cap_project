@@ -10,13 +10,13 @@ using {
 
 entity Books : cuid, managed {
     // key ID          : UUID;
-    title       : localized String(255);
-    genre       : Genre;
+    title       : localized String(255) @mandatory;
+    genre       : Genre                 @assert.range: true;
     publCountry : Country;
-    stock       : NoOfBooks;
+    stock       : NoOfBooks default 0;
     price       : Price;
     isHardCover : Boolean;
-    author      : Association to Authors;
+    author      : Association to Authors  @mandatory  @assert.target;
 }
 
 type NoOfBooks : Integer;
@@ -33,10 +33,10 @@ type Genre     : Integer enum {
 
 entity Authors : cuid, managed {
     // key ID          : UUID;
-    name        : String(100);
+    name        : String(100)           @mandatory;
     dateOfBirth : Date;
     dateOfDeath : Date;
-    epoch       : Association to Epochs;
+    epoch       : Association to Epochs @assert.target;
     books       : Association to many Books
                       on books.author = $self;
 }
