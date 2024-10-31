@@ -19,9 +19,10 @@ class AdminService extends cds.ApplicationService {
     const death = new Date(dateOfDeath);
 
     if (death < birth) {
-      req.error(
-        `The date of death (${dateOfDeath}) cannot be earlier than the date of birth (${dateOfBirth}).`
-      );
+      // req.error(
+      //   `The date of death (${dateOfDeath}) cannot be earlier than the date of birth (${dateOfBirth}).`
+      // );
+      req.error("DEATH_BEFORE_BIRTH", [dateOfDeath, dateOfBirth]);
     }
   }
 }
